@@ -264,7 +264,7 @@ screen quick_menu():
 init python:
     config.overlay_screens.append("quick_menu")
 
-default quick_menu = True
+default quick_menu = False
 
 style quick_button is default
 style quick_button_text is button_text
@@ -559,7 +559,14 @@ screen about():
             if gui.about:
                 text "[gui.about!t]\n"
 
-            text _("Сделано с помощью {a=https://www.renpy.org/}Ren'Py{/a} [renpy.version_only].\n\n[renpy.license!t]")
+            text _("""Сделано с помощью {a=https://www.renpy.org/}Ren'Py{/a} [renpy.version_only].\n
+                \n
+                [renpy.license!t]\n
+                \n
+                Визуальная новелла «Новелла — и точка» для проекта по ОПД. ИРИТ-РтФ УрФУ 2023.\n
+                Авторы:\n
+                    ...
+                """)
 
 
 style about_label is gui_label
