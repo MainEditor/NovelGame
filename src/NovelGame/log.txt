@@ -1,13 +1,13 @@
-Tue Nov 28 17:01:35 2023
+Tue Nov 28 17:04:56 2023
 Windows-10-10.0.19045
 Ren'Py 8.1.3.23091805
  
 
-Bootstrap to the start of init.init. took 0.08s
+Bootstrap to the start of init.init. took 0.07s
 Early init. took 0.00s
-Loader init. took 0.03s
+Loader init. took 0.04s
 Loading error handling. took 0.05s
-Loading script. took 0.16s
+Loading script. took 0.17s
 Loading save slot metadata. took 0.04s
 Loading persistent. took 0.00s
 Running init code. took 0.07s
@@ -15,20 +15,62 @@ Loading analysis data. took 0.02s
 Analyze and compile ATL. took 0.00s
 Reloading save slot metadata. took 0.02s
 Index archives took 0.00s
-Dump and make backups. took 0.09s
+Dump and make backups. took 0.10s
 Cleaning cache. took 0.00s
 Making clean stores. took 0.00s
 Initial gc. took 0.02s
 DPI scale factor: 1.000000
 nvdrs: Loaded, about to disable thread optimizations.
 nvdrs: Disabled thread optimizations.
-Creating interface object. took 0.40s
+Creating interface object. took 0.41s
 Cleaning stores took 0.00s
 Init translation took 0.05s
 Build styles took 0.01s
 Load screen analysis took 0.04s
 Analyze screens took 0.00s
 Save screen analysis took 0.00s
-Prepare screens took 0.11s
+Prepare screens took 0.12s
 Save pyanalysis. took 0.00s
 Save bytecode. took 0.00s
+Running _start took 0.00s
+Performance test:
+Interface start. took 0.10s
+
+Initializing gl2 renderer:
+primary display bounds: (0, 0, 1920, 1080)
+swap interval: 1 frames
+Windowed mode.
+Vendor: "b'NVIDIA Corporation'"
+Renderer: b'NVIDIA GeForce GTX 1660 SUPER/PCIe/SSE2'
+Version: b'4.6.0 NVIDIA 536.23'
+Display Info: None
+Screen sizes: virtual=(1920, 1080) physical=(1739, 978) drawable=(1739, 978)
+Could not open 'cache/shaders.txt':
+Maximum texture size: 4096x4096
+Screen sizes: virtual=(1920, 1080) physical=(1513, 869) drawable=(1513, 869)
+Could not open 'cache/shaders.txt':
+Maximum texture size: 4096x4096
+Screen sizes: virtual=(1920, 1080) physical=(1920, 1017) drawable=(1920, 1017)
+Could not open 'cache/shaders.txt':
+Maximum texture size: 4096x4096
+Screen sizes: virtual=(1920, 1080) physical=(1513, 869) drawable=(1513, 869)
+Could not open 'cache/shaders.txt':
+Maximum texture size: 4096x4096
+Screen sizes: virtual=(1920, 1080) physical=(1357, 670) drawable=(1357, 670)
+Could not open 'cache/shaders.txt':
+Maximum texture size: 4096x4096
+Screen sizes: virtual=(1920, 1080) physical=(1494, 820) drawable=(1494, 820)
+Could not open 'cache/shaders.txt':
+Maximum texture size: 4096x4096
+Screen sizes: virtual=(1920, 1080) physical=(1526, 906) drawable=(1526, 906)
+Could not open 'cache/shaders.txt':
+Maximum texture size: 4096x4096
+Screen sizes: virtual=(1920, 1080) physical=(1527, 894) drawable=(1527, 894)
+Could not open 'cache/shaders.txt':
+Maximum texture size: 4096x4096
+Screen sizes: virtual=(1920, 1080) physical=(1526, 869) drawable=(1526, 869)
+Could not open 'cache/shaders.txt':
+Maximum texture size: 4096x4096
+Screen sizes: virtual=(1920, 1080) physical=(1523, 857) drawable=(1523, 857)
+Could not open 'cache/shaders.txt':
+Maximum texture size: 4096x4096
