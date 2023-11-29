@@ -1,3 +1,6 @@
 .gitattributes
 src/NovelGame/game/saves/
 /.vscode
+src/NovelGame/log.txt
+src/NovelGame/errors.txt
+src/NovelGame/traceback.txt
