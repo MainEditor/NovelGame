@@ -4,3 +4,4 @@ src/NovelGame/game/saves/
 src/NovelGame/log.txt
 src/NovelGame/errors.txt
 src/NovelGame/traceback.txt
+src/NovelGame/game/cache/shaders.txt
