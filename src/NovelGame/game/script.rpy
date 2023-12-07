@@ -26,9 +26,39 @@ image dialogueOleg = "dialogueOleg.png"
 
 ## Все изображения для части Андрея
 image side Andrew nerd:
-    "side_andrew_nerd.png"
-    zoom 0.55
-image AndrewRoom = "ai/room/1.png"
+    "Andrew/side_andrew_nerd.png"
+    zoom 0.45
+image Andrew nerd:
+    "Andrew/Andrew talking1.png"
+    zoom 0.6
+image Andrew listening1: 
+    "Andrew/Andrew listening1.png"
+    zoom 0.6
+image Andrew listening2: 
+    "Andrew/Andrew listening2.png"
+    zoom 0.6
+image Andrew talking1: 
+    "Andrew/Andrew talking1.png"
+    zoom 0.6
+image Andrew talking2: 
+    "Andrew/Andrew talking2.png"
+    zoom 0.6
+image Andrew talking3: 
+    "Andrew/Andrew talking3.png"
+    zoom 0.6
+image Andrew talking4: 
+    "Andrew/Andrew talking4.png"
+    zoom 0.6
+image AndrewRoom = "ai/room/2.png"
+
+## Все изображения для части Кати
+image Park = "ai/park/1.png"
+image Kate fromBack:
+    "Kate/Kate fromBack.png"
+    zoom 0.5
+image Kate greetings1:
+    "Kate/Kate greetings1.png"
+    zoom 0.5
 
 # Игра начинается здесь:
 label start:
@@ -120,6 +150,8 @@ label start:
 
         "{color=#fff}Олег{/color}":
             jump passLabel
+    
+    return
 
 label AndrewSelected:
     call HideAll
@@ -137,34 +169,53 @@ label AndrewSelected:
     hide bg
 
     scene AndrewRoom:
-        blur 25
+        blur 8
 
+#     Андрей:
+#     Привествтвие и разговор) стоит прямо, руки согнуты в локтях и упёрты в бока, голова чуть наклонена вправо.
+#     слушает) стоит прямо, руки сложены на груди (закрытая поза типа) 
+    show Andrew talking1
     "{size=*1.5}*Андрей встречает ГГ у себя дома*"
-    Andrew "Ну что, абитуриентик, как оно? Пора определяться."
+    Andrew talking1 "Ну что, абитуриентик, как оно? Пора определяться."
+    show Andrew listening1 at center
     GG "Да я же говорил уже. Стараюсь для себя. Ну давай, поведай мне о своём студенчестве, трекус."
-    Andrew "Ого, как мы заговорили, хех, ладно. В общем, если ты любишь точные науки, такие как математика и, к сожалению, физика, то тут тебе и место, на юрфаке ты больше будешь учить обществознание, право, лево и, внезапно, латынь."
-    Andrew "Вообще про работу back-end'ером нам мало что говорили, так что я тут по большей части агитирую тебя поступать, основываясь на твоих интересах. Из языков ты можешь выбрать C# или PHP, да даже Java с Python'ом. А вот на B✞✞ писать реквесты к царю батюшке через код не удасться, увы."
+    Andrew talking2 "Ого, как мы заговорили, хех, ладно."
+    Andrew talking3 "В общем, если ты любишь точные науки, такие как математика и, к сожалению, физика, то тут тебе и место, на юрфаке ты больше будешь учить обществознание, право, лево и, внезапно, латынь."
+    Andrew talking1 "Вообще про работу back-end'ером нам мало что говорили, так что я тут по большей части агитирую тебя поступать, основываясь на твоих интересах."
+    Andrew talking4 "Из языков ты можешь выбрать C# или PHP, да даже Java с Python'ом. А вот на B✞✞ писать реквесты к царю батюшке через код не удасться, увы."
+    show Andrew listening2
     GG "Ого"
+    show Andrew listening1 at center
 
     menu selectQuestion:
         "{size=*1.5}О чём хотите поговорить с Андреем?"
         "Класс, а чем бэкендр разработчик занимается на практике?":
             Andrew nerd "Ну, чисто в теории, пишет серверный код, отвечающий за реакцию ресурса на действия пользователя и выдачу информации"
+            show Andrew listening2
             GG "Huh?"
-            Andrew normal "Ну, или простыми словами: ты пишешь внутренности сайта."
+            Andrew talking3 "Ну, или простыми словами: ты пишешь внутренности сайта."
+            show Andrew listening1
             GG "А, всё понял."
-            Andrew "Ещё какие-то вопросы?"
+            Andrew talking4 "Ещё какие-то вопросы?"
+            show Andrew listening1
             GG "Только не по теме, столько не виделись нормально..."
             "*ГГ хорошо пообщался с Андреем и к 10 часам вечера ушёл домой*"
+            call OtherRoom
             jump friendSelectAfterAndrew
             $ involvement += 1
         "Думаю, что этих знаний мне должно хватить. Чем вообще занимаешься-то хоть в свободное от учёбы время?":
             "*ГГ хорошо пообщался с Андреем и к 10 часам вечера ушёл домой*"
+            call OtherRoom
             jump friendSelectAfterAndrew
+    
+    label OtherRoom:
+        scene image "ai/room/3.png":
+            blur 10
+        return
 
     menu friendSelectAfterAndrew:
         set friends
-        "{size=*1.5}Выберите, с кем пойдёте на встречу во вторую очередь."
+        "{size=*1.5}С кем пойти следующим?"
         "{color=#fff}Андрей{/color}":
             jump AndrewSelected
 
@@ -173,6 +224,8 @@ label AndrewSelected:
 
         "{color=#fff}Олег{/color}":
             jump OlegSelected
+
+    return
 
 label HideAll:
     hide KateName
@@ -186,6 +239,7 @@ label HideAll:
 
     hide messengerBG
     hide AndrewRoom
+    hide image "ai/room/3.png"
 
     return
 
@@ -198,5 +252,17 @@ label KateSelected:
     show dialogueKate at Position(yalign=-1.15)
     $ renpy.pause()
     show dialogueKate at Position(yalign=-0.2)
+    $ renpy.pause()
+
+    scene Park:
+        blur 10
+
+    show Kate fromBack
+    "{size=*1.5}ГГ окликивает Катю, и они начинают разговаривать"
+    show Kate greetings1
 
     $ renpy.pause()
+
+
+    return
+
