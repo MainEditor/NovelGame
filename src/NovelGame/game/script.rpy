@@ -2,7 +2,6 @@
     $ namePos = Position(xalign=0.519, yalign=1)
     $ involvement = 0
     default friends = set()
-
 # Определение персонажей игры.
 define GG = Character("Главный герой")
 define Andrew = Character("Андрей", image="Andrew")
@@ -170,7 +169,7 @@ label start:
     return
 
 label AndrewSelected:
-    call HideAll
+    call HideAll from _call_HideAll
 
     scene messengerBG
 
@@ -216,12 +215,12 @@ label AndrewSelected:
             show Andrew listening1
             GG "Только не по теме, столько не виделись нормально..."
             "*ГГ хорошо пообщался с Андреем и к 10 часам вечера ушёл домой*"
-            call OtherRoom
-            jump friendSelectAfterAndrew
             $ involvement += 1
+            call OtherRoom from _call_OtherRoom
+            jump friendSelectAfterAndrew
         "Думаю, что этих знаний мне должно хватить. Чем вообще занимаешься-то хоть в свободное от учёбы время?":
             "*ГГ хорошо пообщался с Андреем и к 10 часам вечера ушёл домой*"
-            call OtherRoom
+            call OtherRoom from _call_OtherRoom_1
             jump friendSelectAfterAndrew
     
     label OtherRoom:
@@ -261,7 +260,7 @@ label HideAll:
 
 
 label KateSelected:
-    call HideAll
+    call HideAll from _call_HideAll_1
 
     scene messengerBG
     show KateName at namePos zorder 1
@@ -292,7 +291,7 @@ label KateSelected:
         "О чём хотите поговорить с Катей?"
         "Я просто думал пойти в бэкенд, но если не получится, то смогу ли я перейти на фронтенд?":
             Kate talking3 "Думаю, что сможешь. В конце концов и фронтэнд и бэкенд можно писать на JavaScript, хоть у этих двух прфессий и разные предназначения, думаю, что ты быстро должен будешь освоиться с переходом."
-            show kate listening2
+            show Kate listening2
             GG "Ясно."
             jump SecondSelect
         "Думаю, что я всё понял. Пройдёмся?":
@@ -325,7 +324,7 @@ label KateSelected:
             show Kate listening1
             GG "Ой, уж прости, но мне в выборе из бэкенда и фронтенда больше импонирует первое, хотя звучало довольно заманчиво."
             Kate talking2 "Я тебя не заставляю, это твой выбор."
-            show kate listening2
+            show Kate listening2
             GG "Ну на этом я думаю, что по моей теме всё. Ну что, как лето-то хоть проводишь?"
             Kate talking1 "Знаешь..."
             jump friendSelectAfterKate
@@ -335,7 +334,7 @@ label KateSelected:
             jump friendSelectAfterKate
     
     label friendSelectAfterKate:
-        call OtherPark
+        call OtherPark from _call_OtherPark
         menu:
             set friends
             "{size=*1.5}С кем пойти следующим?"
@@ -352,6 +351,6 @@ label KateSelected:
         scene image "ai/Park/2.png":
             blur 10
         return
-    
+
     return
 

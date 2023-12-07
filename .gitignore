@@ -7,3 +7,5 @@ src/NovelGame/traceback.txt
 src/NovelGame/game/cache/shaders.txt
 *.rpyc
 src/NovelGame/game/cache/
+!src/NovelGame/
+src/*
