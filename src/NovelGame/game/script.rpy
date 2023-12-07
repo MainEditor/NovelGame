@@ -6,8 +6,8 @@
 # Определение персонажей игры.
 define GG = Character("Главный герой")
 define Andrew = Character("Андрей", image="Andrew")
-define Oleg = Character("Олег")
-define Kate = Character("Катя")
+define Oleg = Character("Олег", image="Oleg")
+define Kate = Character("Катя", image="Kate")
 
 # Определение изображений
 ## Все изображения для мессенджера
@@ -21,8 +21,6 @@ image dialogueKate = "dialogueKate.png"
 
 image OlegName = "OlegName.png"
 image dialogueOleg = "dialogueOleg.png"
-
-
 
 ## Все изображения для части Андрея
 image side Andrew nerd:
@@ -56,9 +54,27 @@ image Park = "ai/park/1.png"
 image Kate fromBack:
     "Kate/Kate fromBack.png"
     zoom 0.5
-image Kate greetings1:
-    "Kate/Kate greetings1.png"
+image Kate talking1:
+    "Kate/Kate talking1.png"
     zoom 0.5
+image Kate talking2:
+    "Kate/Kate talking2.png"
+    zoom 0.5
+image Kate talking3:
+    "Kate/Kate talking3.png"
+    zoom 0.5
+image Kate greetingsOneHand:
+    "Kate/Kate greetingsOneHand.png"
+    zoom 0.5
+image Kate listening1:
+    "Kate/Kate listening1.png"
+    zoom 0.5
+image Kate listening2:
+    "Kate/Kate listening2.png"
+    zoom 0.5
+
+## Все изображения для части Олега
+
 
 # Игра начинается здесь:
 label start:
@@ -177,7 +193,7 @@ label AndrewSelected:
     show Andrew talking1
     "{size=*1.5}*Андрей встречает ГГ у себя дома*"
     Andrew talking1 "Ну что, абитуриентик, как оно? Пора определяться."
-    show Andrew listening1 at center
+    show Andrew listening1
     GG "Да я же говорил уже. Стараюсь для себя. Ну давай, поведай мне о своём студенчестве, трекус."
     Andrew talking2 "Ого, как мы заговорили, хех, ладно."
     Andrew talking3 "В общем, если ты любишь точные науки, такие как математика и, к сожалению, физика, то тут тебе и место, на юрфаке ты больше будешь учить обществознание, право, лево и, внезапно, латынь."
@@ -185,9 +201,9 @@ label AndrewSelected:
     Andrew talking4 "Из языков ты можешь выбрать C# или PHP, да даже Java с Python'ом. А вот на B✞✞ писать реквесты к царю батюшке через код не удасться, увы."
     show Andrew listening2
     GG "Ого"
-    show Andrew listening1 at center
+    show Andrew listening1
 
-    menu selectQuestion:
+    menu:
         "{size=*1.5}О чём хотите поговорить с Андреем?"
         "Класс, а чем бэкендр разработчик занимается на практике?":
             Andrew nerd "Ну, чисто в теории, пишет серверный код, отвечающий за реакцию ресурса на действия пользователя и выдачу информации"
@@ -258,11 +274,84 @@ label KateSelected:
         blur 10
 
     show Kate fromBack
-    "{size=*1.5}ГГ окликивает Катю, и они начинают разговаривать"
-    show Kate greetings1
+    "{size=*1.5}*ГГ окликивает Катю, и они начинают разговаривать*"
+    Kate talking1 "Привет-привет, сколько лет, сколько зим?"
+    show Kate listening1
+    GG "Привет, да, прошло не мало времени с нашей последней встречи."
+    Kate talking3 "Как дела, давай, давай колись."
+    show Kate listening2
+    GG "Да вообще отлично. Я вот хочу узнать некоторые вещи по поводу твоей профессии, расскажешь?"
+    Kate talking1 "О-ооо, конечно! Что именно тебе рассказать о фронтэнде? Может его отличиях от бэкенда?"
+    show Kate listening1
+    GG "Стой, а я думал, что ты в бэкенде работаешь. Ну ладно, это тоже будет познавательно, информативно и полезно, так что с радостью выслушаю."
+    Kate talking2 "а в-оот, фронтэнд отличается от бэкенда тем, что тут ты стараешься не для других программистов, а для юзеров. Им вообще не важно написан у тебя сайт в 4 метода или в 44, им важен UI, юзер интрефасе, если так удобно, воооот"
+    show Kate listening2
+    GG "Ого, прикольно!"
 
-    $ renpy.pause()
+    menu:
+        "О чём хотите поговорить с Катей?"
+        "Я просто думал пойти в бэкенд, но если не получится, то смогу ли я перейти на фронтенд?":
+            Kate talking3 "Думаю, что сможешь. В конце концов и фронтэнд и бэкенд можно писать на JavaScript, хоть у этих двух прфессий и разные предназначения, думаю, что ты быстро должен будешь освоиться с переходом."
+            show kate listening2
+            GG "Ясно."
+            jump SecondSelect
+        "Думаю, что я всё понял. Пройдёмся?":
+            show Kate greetingsOneHand
+            "ГГ отлично пообщался с Катей на отвлечённый темы"
+            jump friendSelectAfterKate
 
+    menu SecondSelect:
+        "О чём ещё хотите поговорить?"
+        "А про условия труда есть, что сказать?":
+            Kate talking2 "Труда? А, всё более менее, есть сроки и в них нужно укладываться. Что немало важно нужно иметь хорошую фантазию и чувство вкуса, чтобы создавать что-то действительно необычное и красивое."
+            show Kate listening1
+            GG "Дак это же буквально я."
+            Kate talking3 "Ага, Гослинг ты наш, охотно в это верю.  Надеюсь, это не очень всё занудно?"
+            show Kate listening1
+            GG "Да нет, нет, что ты."
+            jump ThirdSelect
+        "Думаю, что я всё понял. Пройдёмся?":
+            show Kate greetingsOneHand
+            "ГГ отлично пообщался с Катей на отвлечённый темы"
+            jump friendSelectAfterKate
+    
+    menu ThirdSelect:
+        "О чём ещё хотите поговорить?"
+        "А вот ещё, хоть немного и неприлично, но какая зп у фронтэндера?":
+            Kate talking1 "Сейчас, дай-ка посчитаю... ммм…  в среднем это 80+ хихи"
+            show Kate listening2
+            GG "Немало"
+            Kate talking3 "Ага, работка не особо пыльная, но освоиться можно и если что, то у тебя обязательно получится."
+            show Kate listening1
+            GG "Ой, уж прости, но мне в выборе из бэкенда и фронтенда больше импонирует первое, хотя звучало довольно заманчиво."
+            Kate talking2 "Я тебя не заставляю, это твой выбор."
+            show kate listening2
+            GG "Ну на этом я думаю, что по моей теме всё. Ну что, как лето-то хоть проводишь?"
+            Kate talking1 "Знаешь..."
+            jump friendSelectAfterKate
+        "Думаю, что я всё понял. Пройдёмся?":
+            show Kate greetingsOneHand
+            "ГГ отлично пообщался с Катей на отвлечённый темы"
+            jump friendSelectAfterKate
+    
+    label friendSelectAfterKate:
+        call OtherPark
+        menu:
+            set friends
+            "{size=*1.5}С кем пойти следующим?"
+            "{color=#fff}Андрей{/color}":
+                jump AndrewSelected
 
+            "{color=#fff}Катя{/color}":
+                jump KateSelected
+
+            "{color=#fff}Олег{/color}":
+                jump OlegSelected
+    
+    label OtherPark:
+        scene image "ai/Park/2.png":
+            blur 10
+        return
+    
     return
 
