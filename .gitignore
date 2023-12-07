@@ -5,5 +5,5 @@ src/NovelGame/log.txt
 src/NovelGame/errors.txt
 src/NovelGame/traceback.txt
 src/NovelGame/game/cache/shaders.txt
-NovelGame\src\NovelGame-1.0-dists
 *.rpyc
+src/NovelGame/game/cache/

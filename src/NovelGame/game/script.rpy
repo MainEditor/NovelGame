@@ -1,8 +1,7 @@
 ﻿init:
     $ namePos = Position(xalign=0.519, yalign=1)
-
-init python:
-    involvement = 0
+    $ involvement = 0
+    default friends = set()
 
 # Определение персонажей игры.
 define GG = Character("Главный герой")
@@ -10,13 +9,26 @@ define Andrew = Character("Андрей", image="Andrew")
 define Oleg = Character("Олег")
 define Kate = Character("Катя")
 
+# Определение изображений
+## Все изображения для мессенджера
 image messengerBG = "messenger.png"
+
 image AndrewName = "AndrewName.png"
+image dialogueAndrew = "dialogueAndrew.png"
+
+image KateName = "KateName.png"
+image dialogueKate = "dialogueKate.png"
+
+image OlegName = "OlegName.png"
+image dialogueOleg = "dialogueOleg.png"
+
+
+
+## Все изображения для части Андрея
 image side Andrew nerd:
     "side_andrew_nerd.png"
     zoom 0.55
-image KateName = "KateName.png"
-image OlegName = "OlegName.png"
+image AndrewRoom = "ai/room/1.png"
 
 # Игра начинается здесь:
 label start:
@@ -24,28 +36,28 @@ label start:
     scene messengerBG
 
     show AndrewName at namePos zorder 1
-    show image "dialogueAndrew.png" at Position(yalign=-0.22)
+    show dialogueAndrew at Position(yalign=-0.22)
     $ renpy.pause()
-    show image "dialogueAndrew.png" at Position(yalign=-0.135)
+    show dialogueAndrew at Position(yalign=-0.135)
     $ renpy.pause()
-    show image "dialogueAndrew.png" at Position(yalign=0.2)
+    show dialogueAndrew at Position(yalign=0.2)
     $ renpy.pause()
-    show image "dialogueAndrew.png" at Position(yalign=0.325)
+    show dialogueAndrew at Position(yalign=0.325)
     $ renpy.pause()
-    show image "dialogueAndrew.png" at Position(yalign=0.4)
+    show dialogueAndrew at Position(yalign=0.4)
     $ renpy.pause()
-    show image "dialogueAndrew.png" at Position(yalign=0.545)
+    show dialogueAndrew at Position(yalign=0.545)
     $ renpy.pause()
-    show image "dialogueAndrew.png" at Position(yalign=0.625)
+    show dialogueAndrew at Position(yalign=0.625)
     $ renpy.pause()
-    show image "dialogueAndrew.png" at Position(yalign=0.725)
+    show dialogueAndrew at Position(yalign=0.725)
     $ renpy.pause()
-    show image "dialogueAndrew.png" at Position(yalign=0.805)
+    show dialogueAndrew at Position(yalign=0.805)
     $ renpy.pause()
     
     "{size=*1.5}*Слава пишет другу Олегу, с которым тоже немало знаком*"
     window hide
-    hide image "dialogueAndrew.png"
+    hide dialogueAndrew
     hide AndrewName
 
     show OlegName at namePos zorder 1
@@ -66,26 +78,26 @@ label start:
     hide KateName
 
     show OlegName at namePos zorder 1
-    show image "dialogueOleg.png" at Position(yalign=-0.2)
+    show dialogueOleg at Position(yalign=-0.2)
     $ renpy.pause()
-    show image "dialogueOleg.png" at Position(yalign=-0.01)
+    show dialogueOleg at Position(yalign=-0.01)
     $ renpy.pause()
-    show image "dialogueOleg.png" at Position(yalign=0.22)
+    show dialogueOleg at Position(yalign=0.22)
     $ renpy.pause()
-    show image "dialogueOleg.png" at Position(yalign=0.45)
+    show dialogueOleg at Position(yalign=0.45)
     $ renpy.pause()
-    show image "dialogueOleg.png" at Position(yalign=0.68)
+    show dialogueOleg at Position(yalign=0.68)
     $ renpy.pause()
-    show image "dialogueOleg.png" at Position(yalign=0.85)
+    show dialogueOleg at Position(yalign=0.85)
     $ renpy.pause()
 
     play audio "audio/sounds/notification.mp3" volume 0.75
     "{size=*1.5}*Пришло сообщение от Кати*"
-    hide image "dialogueOleg.png"
+    hide dialogueOleg
     hide OlegName
 
     show KateName at namePos zorder 1
-    show image "dialogueKate.png" at Position(yalign=0.5)
+    show dialogueKate at Position(yalign=-2.75)
     $ renpy.pause()
 
     "{size=*1.5}Похоже, вы должны выбрать, с кем пойти в первую очередь."
@@ -98,36 +110,34 @@ label start:
     ## Олег Катя Андрей
 
     menu:
+        set friends
         "{size=*1.5}Выберите, с кем пойдёте на встречу в первую очередь."
         "{color=#fff}Андрей{/color}":
-            hide KateName
-            hide image "dialogueKate.png"
             jump AndrewSelected
 
         "{color=#fff}Катя{/color}":
-            hide KateName
-            hide image "dialogueKate.png"
-        "{color=#fff}Олег{/color}":
-            hide KateName
-            hide image "dialogueKate.png"
+            jump KateSelected
 
-    return
+        "{color=#fff}Олег{/color}":
+            jump passLabel
 
 label AndrewSelected:
+    call HideAll
+
+    scene messengerBG
+
     show AndrewName at namePos zorder 1
-    show image "dialogueAndrew.png" at Position(yalign=0.895)
+    show dialogueAndrew at Position(yalign=0.895)
     $ renpy.pause()
-    show image "dialogueAndrew.png" at Position(yalign=0.95)
+    show dialogueAndrew at Position(yalign=0.95)
     $ renpy.pause()
 
     hide AndrewName
-    hide image "dialogueAndrew.png"
+    hide dialogueAndrew
     hide bg
 
-    image AndrewRoom = "ai/room/1.png"
-
     scene AndrewRoom:
-        blur 5
+        blur 25
 
     "{size=*1.5}*Андрей встречает ГГ у себя дома*"
     Andrew "Ну что, абитуриентик, как оно? Пора определяться."
@@ -137,6 +147,7 @@ label AndrewSelected:
     GG "Ого"
 
     menu selectQuestion:
+        "{size=*1.5}О чём хотите поговорить с Андреем?"
         "Класс, а чем бэкендр разработчик занимается на практике?":
             Andrew nerd "Ну, чисто в теории, пишет серверный код, отвечающий за реакцию ресурса на действия пользователя и выдачу информации"
             GG "Huh?"
@@ -145,16 +156,47 @@ label AndrewSelected:
             Andrew "Ещё какие-то вопросы?"
             GG "Только не по теме, столько не виделись нормально..."
             "*ГГ хорошо пообщался с Андреем и к 10 часам вечера ушёл домой*"
-            jump secondFriendSelect
+            jump friendSelectAfterAndrew
             $ involvement += 1
         "Думаю, что этих знаний мне должно хватить. Чем вообще занимаешься-то хоть в свободное от учёбы время?":
             "*ГГ хорошо пообщался с Андреем и к 10 часам вечера ушёл домой*"
-            jump secondFriendSelect
+            jump friendSelectAfterAndrew
 
-    menu secondFriendSelect:
+    menu friendSelectAfterAndrew:
+        set friends
         "{size=*1.5}Выберите, с кем пойдёте на встречу во вторую очередь."
-        "{color=#a79696}Андрей{/color}":
-            jump secondFriendSelect
+        "{color=#fff}Андрей{/color}":
+            jump AndrewSelected
+
         "{color=#fff}Катя{/color}":
-            jump 
+            jump KateSelected
+
         "{color=#fff}Олег{/color}":
+            jump OlegSelected
+
+label HideAll:
+    hide KateName
+    hide dialogueKate
+    
+    hide OlegName
+    hide dialogueOleg
+
+    hide AndrewName
+    hide dialogueAndrew
+
+    hide messengerBG
+    hide AndrewRoom
+
+    return
+
+
+label KateSelected:
+    call HideAll
+
+    scene messengerBG
+    show KateName at namePos zorder 1
+    show dialogueKate at Position(yalign=-1.15)
+    $ renpy.pause()
+    show dialogueKate at Position(yalign=-0.2)
+
+    $ renpy.pause()
