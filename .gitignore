@@ -8,5 +8,4 @@ src/NovelGame/game/cache/shaders.txt
 src/NovelGame/game/cache/
 !src/NovelGame/
 src/*
-src/*.json
 src/NovelGame/game/*.rpyc
