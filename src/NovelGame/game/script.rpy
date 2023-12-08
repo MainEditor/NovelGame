@@ -6,6 +6,7 @@
 init python:
     def CheckLastFriend(friend, friendBlock):
         if friend not in friends and len(friends) == 2:
+            friends.add(friend)
             renpy.say("", "{size=*1.5}Вы пошли к последнему другу")
             renpy.jump(friendBlock)
 
@@ -65,7 +66,7 @@ image AndrewRoom:
 ## Все изображения для части Кати
 image Park:
     "ai/park/1.png"
-    blur 10
+    blur 8
 image Kate fromBack:
     "Kate/Kate fromBack.png"
     zoom 0.5
@@ -89,7 +90,9 @@ image Kate listening2:
     zoom 0.5
 
 ## Все изображения для части Олега
-
+image Cafe:
+    "ai/cafe/4.png"
+    blur 8
 
 # Игра начинается здесь:
 label start:
@@ -141,17 +144,17 @@ label start:
     hide KateName
 
     show OlegName at namePos zorder 1
-    show dialogueOleg at Position(yalign=-0.2)
+    show dialogueOleg at Position(yalign=-0.125)
     $ renpy.pause()
     show dialogueOleg at Position(yalign=-0.01)
     $ renpy.pause()
-    show dialogueOleg at Position(yalign=0.22)
+    show dialogueOleg at Position(yalign=0.135)
     $ renpy.pause()
-    show dialogueOleg at Position(yalign=0.45)
+    show dialogueOleg at Position(yalign=0.275)
     $ renpy.pause()
-    show dialogueOleg at Position(yalign=0.68)
+    show dialogueOleg at Position(yalign=0.415)
     $ renpy.pause()
-    show dialogueOleg at Position(yalign=0.85)
+    show dialogueOleg at Position(yalign=0.519)
     $ renpy.pause()
 
     play audio "audio/sounds/notification.mp3" volume 0.75
@@ -237,7 +240,7 @@ label AndrewSelected:
     label friendSelectAfterAndrew:
         $ GoToLastFriend()
         scene image "ai/room/3.png":
-            blur 10
+            blur 8
         menu:
             set friends
             "{size=*1.5}С кем пойти следующим?"
@@ -311,13 +314,13 @@ label KateSelected:
             Kate talking3 "Думаю, что сможешь. В конце концов и фронтэнд и бэкенд можно писать на JavaScript, хоть у этих двух прфессий и разные предназначения, думаю, что ты быстро должен будешь освоиться с переходом."
             show Kate listening2
             GG "Ясно."
-            jump SecondSelect
+            jump KateSecondSelect
         "Думаю, что я всё понял. Пройдёмся?":
             show Kate greetingsOneHand
             "ГГ отлично пообщался с Катей на отвлечённый темы"
             jump friendSelectAfterKate
 
-    menu SecondSelect:
+    menu KateSecondSelect:
         "О чём ещё хотите поговорить?"
         "А про условия труда есть, что сказать?":
             $ involvement += 1
@@ -327,13 +330,13 @@ label KateSelected:
             Kate talking3 "Ага, Гослинг ты наш, охотно в это верю.  Надеюсь, это не очень всё занудно?"
             show Kate listening1
             GG "Да нет, нет, что ты."
-            jump ThirdSelect
+            jump KateThirdSelect
         "Думаю, что я всё понял. Пройдёмся?":
             show Kate greetingsOneHand
             "ГГ отлично пообщался с Катей на отвлечённый темы"
             jump friendSelectAfterKate
     
-    menu ThirdSelect:
+    menu KateThirdSelect:
         "О чём ещё хотите поговорить?"
         "А вот ещё, хоть немного и неприлично, но какая зп у фронтэндера?":
             $ involvement += 1
@@ -356,7 +359,7 @@ label KateSelected:
     label friendSelectAfterKate:
         $ GoToLastFriend()
         scene image "ai/Park/2.png":
-            blur 10
+            blur 8
         menu:
             set friends
             "{size=*1.5}С кем пойти следующим?"
@@ -375,5 +378,68 @@ label OlegSelected:
     call HideAll
 
     scene messengerBG
+    show OlegName at namePos zorder 1
+    show dialogueOleg at Position(yalign=0.68)
     $ renpy.pause()
+    show dialogueOleg at Position(yalign=0.8)
+    $ renpy.pause()
+    show dialogueOleg at Position(yalign=0.9)
+    $ renpy.pause()
+
+    scene Cafe
+    with Fade(0.2, 0.3, 0.2)
+
+    window show
+    "{size=*1.5}*Олег встречает ГГ на входе в кафе*"
+    Oleg "Приветствую, как дела?"
+    GG "Эм, привет, да нормально, а ты всё уже что ли?"
+    Oleg "Ну, я решил, что как-то не культурно будет за столом общаться, так что своевременно закон-чил. Хорошо, что у тебя всё хорошо, как бы это не звучало."
+    GG "О как, ну ладно. Я хотел спрость чем вы там занимаетесь вообще?"
+    Oleg "Сразу к делу перешёл, ну тебя совсем после экзаменов не узнать. Пошли выйдем отсюда, чтобы не мешать другим что ли."
+    "{size=*1.5}*ГГ и Олег вышли на улицу*"
+    Oleg "Возвращаясь к твоему вопросу: в общем и целом, всяким. Если тебя конкретно интересует бэ-кенд разработка, то мы пишем и переписываем код для заказчиков. Вот понадобился кому-то сайт, ну вот просто одностраничник, так и радостно, быстро сделаем, а коли у кого-то правок много и требований, так долго возиться с ним будем."
+
+    menu:
+        "Что хотите спросить у Олега?"
+        "И всё, ничего больше?":
+            $ involvement += 1
+            Oleg "Ну есть и некоторые другие задачи, проверять чужой код, например. Не очень простой труд, честно сказать, нужно быть предельно сконцентрированным и сфокусированным. Если про-пустить что-то важное, то кого-то будут бить, и возможно даже ногами. Ну во всяком случае у нас в конторке так."
+            GG "Ну про рукоприкладство… или даже ногоприкладство – это же шутка, верно?"
+            Oleg "А вот, кто знает… Отучишься, придёшь и сам посмотришь =)))"
+            GG "Понятно, а ты всё такой же."
+            Oleg "Ага, а минусы будут? Что-нибудь ещё рассказать? Какие-нибудь байки ещё травануть?"
+            jump AndrewSecondSelect
+        "Понятно, понятно, А теперь давай ты рассказывай, как у тебя лето проходит?":
+            "После часа хорошей беседы Олег и гг расходятся, кто домой, а кто дальше работать"
+            jump friendSelectAfterOleg
+
+    menu AndrewSecondSelect:
+        "Что ещё хотите спросить у Олега?"
+        "Наверное, не самый хороший вопрос, но а вот как по зп всё?":
+            $ involvement += 1
+            Oleg "Ну вот знаешь, в среднем это где-то 100к, где-то меньше, где-то больше. Не знаю как там у юристов, но мы не жалуемся. Ну как готов к поступлению?"
+            GG "Ну я ещё думаю пока что. ладно, спасибо, что помог и объяснил"
+            Oleg "Всегда пожалуйста. А теперь давай ты рассказывай, как у тебя лето проходит..."
+            "После часа хорошей беседы Олег и гг расходятся, кто домой, а кто дальше работать"
+            jump friendSelectAfterOleg
+        "Да не стоит, а теперь давай ты рассказывай, как у тебя лето проходит?":
+            "После часа хорошей беседы Олег и гг расходятся, кто домой, а кто дальше работать"
+            jump friendSelectAfterOleg
+    
+    label friendSelectAfterOleg:
+        $ GoToLastFriend()
+        scene image "ai/Cafe/1.png":
+            blur 8
+        menu:
+            set friends
+            "{size=*1.5}С кем пойти следующим?"
+            "{color=#fff}Андрей{/color}":
+                jump AndrewSelected
+
+            "{color=#fff}Катя{/color}":
+                jump KateSelected
+
+            "{color=#fff}Олег{/color}":
+                jump OlegSelected
+
     return
