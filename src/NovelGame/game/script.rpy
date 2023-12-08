@@ -46,10 +46,14 @@ image Andrew talking3:
 image Andrew talking4: 
     "Andrew/Andrew talking4.png"
     zoom 0.6
-image AndrewRoom = "ai/room/2.png"
+image AndrewRoom:
+    "ai/room/2.png"
+    blur 8.0
 
 ## Все изображения для части Кати
-image Park = "ai/park/1.png"
+image Park:
+    "ai/park/1.png"
+    blur 10
 image Kate fromBack:
     "Kate/Kate fromBack.png"
     zoom 0.5
@@ -101,7 +105,9 @@ label start:
     $ renpy.pause()
     
     "{size=*1.5}*Слава пишет другу Олегу, с которым тоже немало знаком*"
+
     window hide
+
     hide dialogueAndrew
     hide AndrewName
 
@@ -179,17 +185,11 @@ label AndrewSelected:
     show dialogueAndrew at Position(yalign=0.95)
     $ renpy.pause()
 
-    hide AndrewName
-    hide dialogueAndrew
-    hide bg
-
-    scene AndrewRoom:
-        blur 8
-
-#     Андрей:
-#     Привествтвие и разговор) стоит прямо, руки согнуты в локтях и упёрты в бока, голова чуть наклонена вправо.
-#     слушает) стоит прямо, руки сложены на груди (закрытая поза типа) 
+    scene AndrewRoom
     show Andrew talking1
+    with Fade(0.2, 0.3, 0.2)
+
+    window show
     "{size=*1.5}*Андрей встречает ГГ у себя дома*"
     Andrew talking1 "Ну что, абитуриентик, как оно? Пора определяться."
     show Andrew listening1
@@ -205,6 +205,7 @@ label AndrewSelected:
     menu:
         "{size=*1.5}О чём хотите поговорить с Андреем?"
         "Класс, а чем бэкендр разработчик занимается на практике?":
+            $ involvement += 1
             Andrew nerd "Ну, чисто в теории, пишет серверный код, отвечающий за реакцию ресурса на действия пользователя и выдачу информации"
             show Andrew listening2
             GG "Huh?"
@@ -215,7 +216,6 @@ label AndrewSelected:
             show Andrew listening1
             GG "Только не по теме, столько не виделись нормально..."
             "*ГГ хорошо пообщался с Андреем и к 10 часам вечера ушёл домой*"
-            $ involvement += 1
             call OtherRoom from _call_OtherRoom
             jump friendSelectAfterAndrew
         "Думаю, что этих знаний мне должно хватить. Чем вообще занимаешься-то хоть в свободное от учёбы время?":
@@ -243,6 +243,8 @@ label AndrewSelected:
     return
 
 label HideAll:
+    window hide
+
     hide KateName
     hide dialogueKate
     
@@ -269,10 +271,11 @@ label KateSelected:
     show dialogueKate at Position(yalign=-0.2)
     $ renpy.pause()
 
-    scene Park:
-        blur 10
-
+    scene Park
     show Kate fromBack
+    with Fade(0.2, 0.3, 0.2)
+
+    window show
     "{size=*1.5}*ГГ окликивает Катю, и они начинают разговаривать*"
     Kate talking1 "Привет-привет, сколько лет, сколько зим?"
     show Kate listening1
@@ -290,6 +293,7 @@ label KateSelected:
     menu:
         "О чём хотите поговорить с Катей?"
         "Я просто думал пойти в бэкенд, но если не получится, то смогу ли я перейти на фронтенд?":
+            $ involvement += 1
             Kate talking3 "Думаю, что сможешь. В конце концов и фронтэнд и бэкенд можно писать на JavaScript, хоть у этих двух прфессий и разные предназначения, думаю, что ты быстро должен будешь освоиться с переходом."
             show Kate listening2
             GG "Ясно."
@@ -302,6 +306,7 @@ label KateSelected:
     menu SecondSelect:
         "О чём ещё хотите поговорить?"
         "А про условия труда есть, что сказать?":
+            $ involvement += 1
             Kate talking2 "Труда? А, всё более менее, есть сроки и в них нужно укладываться. Что немало важно нужно иметь хорошую фантазию и чувство вкуса, чтобы создавать что-то действительно необычное и красивое."
             show Kate listening1
             GG "Дак это же буквально я."
@@ -317,6 +322,7 @@ label KateSelected:
     menu ThirdSelect:
         "О чём ещё хотите поговорить?"
         "А вот ещё, хоть немного и неприлично, но какая зп у фронтэндера?":
+            $ involvement += 1
             Kate talking1 "Сейчас, дай-ка посчитаю... ммм…  в среднем это 80+ хихи"
             show Kate listening2
             GG "Немало"
@@ -353,4 +359,3 @@ label KateSelected:
         return
 
     return
-
