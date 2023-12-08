@@ -2,6 +2,18 @@
     $ namePos = Position(xalign=0.519, yalign=1)
     $ involvement = 0
     default friends = set()
+
+init python:
+    def CheckLastFriend(friend, friendBlock):
+        if friend not in friends and len(friends) == 2:
+            renpy.say("", "{size=*1.5}Вы пошли к последнему другу")
+            renpy.jump(friendBlock)
+
+    def GoToLastFriend():
+        CheckLastFriend("{color=#fff}Андрей{/color}", "AndrewSelected")
+        CheckLastFriend("{color=#fff}Катя{/color}", "KateSelected")
+        CheckLastFriend("{color=#fff}Олег{/color}", "OlegSelected")
+
 # Определение персонажей игры.
 define GG = Character("Главный герой")
 define Andrew = Character("Андрей", image="Andrew")
@@ -170,7 +182,7 @@ label start:
             jump KateSelected
 
         "{color=#fff}Олег{/color}":
-            jump passLabel
+            jump OlegSelected
     
     return
 
@@ -223,7 +235,9 @@ label AndrewSelected:
             jump friendSelectAfterAndrew
 
     label friendSelectAfterAndrew:
-        call OtherRoom from _call_OtherRoom_1
+        $ GoToLastFriend()
+        scene image "ai/room/3.png":
+            blur 10
         menu:
             set friends
             "{size=*1.5}С кем пойти следующим?"
@@ -235,11 +249,6 @@ label AndrewSelected:
 
             "{color=#fff}Олег{/color}":
                 jump OlegSelected
-
-    label OtherRoom:
-        scene image "ai/room/3.png":
-            blur 10
-        return
 
     return
 
@@ -256,9 +265,13 @@ label HideAll:
     hide dialogueAndrew
 
     hide messengerBG
+
     hide AndrewRoom
     hide image "ai/room/3.png"
 
+    hide Kate
+    hide Park
+    hide image "ai/Park/2.png"
     return
 
 
@@ -341,7 +354,9 @@ label KateSelected:
             jump friendSelectAfterKate
     
     label friendSelectAfterKate:
-        call OtherPark from _call_OtherPark
+        $ GoToLastFriend()
+        scene image "ai/Park/2.png":
+            blur 10
         menu:
             set friends
             "{size=*1.5}С кем пойти следующим?"
@@ -353,10 +368,12 @@ label KateSelected:
 
             "{color=#fff}Олег{/color}":
                 jump OlegSelected
-    
-    label OtherPark:
-        scene image "ai/Park/2.png":
-            blur 10
-        return
 
+    return
+
+label OlegSelected:
+    call HideAll
+
+    scene messengerBG
+    $ renpy.pause()
     return
