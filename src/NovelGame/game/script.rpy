@@ -220,25 +220,26 @@ label AndrewSelected:
             jump friendSelectAfterAndrew
         "Думаю, что этих знаний мне должно хватить. Чем вообще занимаешься-то хоть в свободное от учёбы время?":
             "*ГГ хорошо пообщался с Андреем и к 10 часам вечера ушёл домой*"
-            call OtherRoom from _call_OtherRoom_1
             jump friendSelectAfterAndrew
-    
+
+    label friendSelectAfterAndrew:
+        call OtherRoom from _call_OtherRoom_1
+        menu:
+            set friends
+            "{size=*1.5}С кем пойти следующим?"
+            "{color=#fff}Андрей{/color}":
+                jump AndrewSelected
+
+            "{color=#fff}Катя{/color}":
+                jump KateSelected
+
+            "{color=#fff}Олег{/color}":
+                jump OlegSelected
+
     label OtherRoom:
         scene image "ai/room/3.png":
             blur 10
         return
-
-    menu friendSelectAfterAndrew:
-        set friends
-        "{size=*1.5}С кем пойти следующим?"
-        "{color=#fff}Андрей{/color}":
-            jump AndrewSelected
-
-        "{color=#fff}Катя{/color}":
-            jump KateSelected
-
-        "{color=#fff}Олег{/color}":
-            jump OlegSelected
 
     return
 
