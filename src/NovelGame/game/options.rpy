@@ -121,7 +121,7 @@ define config.window_hide_transition = Dissolve(.2)
 ## в то время как любая другая цифра — это количество символов, печатаемых в
 ## секунду.
 # TODO: поменять сокрость на 25
-default preferences.text_cps = 50
+default preferences.text_cps = 25
 
 
 ## Стандартная задержка авточтения. Большие значения означают долгие ожидания, а
