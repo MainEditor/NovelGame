@@ -20,7 +20,7 @@ AppSupportURL={#MyAppURL}
 AppUpdatesURL={#MyAppURL}
 DefaultDirName={autopf}\NovelGame
 DisableProgramGroupPage=yes
-LicenseFile=C:\Users\Daud\Desktop\NovelGame\LICENSE
+; LicenseFile=C:\Users\Daud\Desktop\NovelGame\LICENSE
 ; Remove the following line to run in administrative install mode (install for all users.)
 PrivilegesRequired=lowest
 OutputDir=C:\Users\Daud\Desktop\NovelGame
@@ -33,7 +33,7 @@ WizardStyle=modern
 Name: "russian"; MessagesFile: "compiler:Languages\Russian.isl"
 
 [Tasks]
-Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
+Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: checkedonce
 
 [Files]
 Source: "C:\Users\Daud\Desktop\NovelGame\src\NovelGame-0.9-dists\NovelGame-0.9-win\{#MyAppExeName}"; DestDir: "{app}"; Flags: ignoreversion
