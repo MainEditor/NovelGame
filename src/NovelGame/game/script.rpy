@@ -1,5 +1,6 @@
 ﻿init:
     $ namePos = Position(xalign=0.519, yalign=1)
+    $ defaultFade = Fade(0.3, 0.3, 0.3)
     $ involvement = 0
     default friends = set()
 
@@ -9,6 +10,10 @@ init python:
             friends.add(friend)
             renpy.say("", "{size=*1.5}Вы пошли к последнему другу")
             renpy.jump(friendBlock)
+        elif involvement >= 4 and len(friends) == 3:
+            renpy.jump("HappyEnd")
+        elif involvement < 4 and len(friends) == 3:
+            renpy.jump("UNhappyEnd")
 
     def GoToLastFriend():
         CheckLastFriend("{color=#fff}Андрей{/color}", "AndrewSelected")
@@ -33,6 +38,9 @@ image dialogueKate = "dialogueKate.png"
 
 image OlegName = "OlegName.png"
 image dialogueOleg = "dialogueOleg.png"
+
+image HappyEndDialogueAndrew = "dialogueAndrewHappyEnd.png"
+image UNhappyEndDialogueAndrew = "dialogueAndrewUNhappyEnd.png"
 
 ## Все изображения для части Андрея
 image side Andrew nerd:
@@ -93,6 +101,27 @@ image Kate listening2:
 image Cafe:
     "ai/cafe/4.png"
     blur 8
+image Street:
+    "ai/cafe/3.png"
+    blur 8
+image Oleg talking1:
+    "Oleg/Oleg talking1.png"
+    zoom 0.62
+image Oleg talking2:
+    "Oleg/Oleg talking2.png"
+    zoom 0.62
+image Oleg shakehand1:
+    "Oleg/Oleg shakehand1.png"
+    zoom 0.62
+image Oleg shakehand2:
+    "Oleg/Oleg shakehand2.png"
+    zoom 0.62
+image Oleg listening1:
+    "Oleg/Oleg listening1.png"
+    zoom 0.62
+image Oleg listening2:
+    "Oleg/Oleg listening2.png"
+    zoom 0.62
 
 # Игра начинается здесь:
 label start:
@@ -202,7 +231,7 @@ label AndrewSelected:
 
     scene AndrewRoom
     show Andrew talking1
-    with Fade(0.2, 0.3, 0.2)
+    with defaultFade
 
     window show
     "{size=*1.5}*Андрей встречает ГГ у себя дома*"
@@ -265,6 +294,8 @@ label HideAll:
 
     hide AndrewName
     hide dialogueAndrew
+    hide HappyEndDialogueAndrew
+    hide UNhappyEndDialogueAndrew
 
     hide messengerBG
 
@@ -289,7 +320,7 @@ label KateSelected:
 
     scene Park
     show Kate fromBack
-    with Fade(0.2, 0.3, 0.2)
+    with defaultFade
 
     window show
     "{size=*1.5}*ГГ окликивает Катю, и они начинают разговаривать*"
@@ -374,7 +405,7 @@ label KateSelected:
     return
 
 label OlegSelected:
-    call HideAll
+    call HideAll from _call_HideAll_2
 
     scene messengerBG
     show OlegName at namePos zorder 1
@@ -386,27 +417,43 @@ label OlegSelected:
     $ renpy.pause()
 
     scene Cafe
-    with Fade(0.2, 0.3, 0.2)
+    show Oleg shakehand2
+    with defaultFade
 
     window show
     "{size=*1.5}*Олег встречает ГГ на входе в кафе*"
-    Oleg "Приветствую, как дела?"
+    Oleg shakehand1 "Приветствую, как дела?"
+    show Oleg listening1
     GG "Эм, привет, да нормально, а ты всё уже что ли?"
-    Oleg "Ну, я решил, что как-то не культурно будет за столом общаться, так что своевременно закон-чил. Хорошо, что у тебя всё хорошо, как бы это не звучало."
+    Oleg talking2 "Ну, я решил, что как-то не культурно будет за столом общаться, так что своевременно закон-чил. Хорошо, что у тебя всё хорошо, как бы это не звучало."
+    show Oleg listening1
     GG "О как, ну ладно. Я хотел спрость чем вы там занимаетесь вообще?"
-    Oleg "Сразу к делу перешёл, ну тебя совсем после экзаменов не узнать. Пошли выйдем отсюда, чтобы не мешать другим что ли."
+    Oleg talking1 "Сразу к делу перешёл, ну тебя совсем после экзаменов не узнать. Пошли выйдем отсюда, чтобы не мешать другим что ли."
+    show Oleg listening2
     "{size=*1.5}*ГГ и Олег вышли на улицу*"
-    Oleg "Возвращаясь к твоему вопросу: в общем и целом, всяким. Если тебя конкретно интересует бэ-кенд разработка, то мы пишем и переписываем код для заказчиков. Вот понадобился кому-то сайт, ну вот просто одностраничник, так и радостно, быстро сделаем, а коли у кого-то правок много и требований, так долго возиться с ним будем."
+    window hide
+
+    scene Street
+    show Oleg talking2
+    with defaultFade
+
+    window show
+    Oleg talking2 "Возвращаясь к твоему вопросу: в общем и целом, всяким. Если тебя конкретно интересует бэ-кенд разработка, то мы пишем и переписываем код для заказчиков."
+    Oleg talking1 "Вот понадобился кому-то сайт, ну вот просто одностраничник, так и радостно, быстро сделаем, а коли у кого-то правок много и требований, так долго возиться с ним будем."
+    show Oleg listening2
 
     menu:
         "Что хотите спросить у Олега?"
         "И всё, ничего больше?":
             $ involvement += 1
-            Oleg "Ну есть и некоторые другие задачи, проверять чужой код, например. Не очень простой труд, честно сказать, нужно быть предельно сконцентрированным и сфокусированным. Если про-пустить что-то важное, то кого-то будут бить, и возможно даже ногами. Ну во всяком случае у нас в конторке так."
+            Oleg talking2 "Ну есть и некоторые другие задачи, проверять чужой код, например. Не очень простой труд, честно сказать, нужно быть предельно сконцентрированным и сфокусированным. Если про-пустить что-то важное, то кого-то будут бить, и возможно даже ногами. Ну во всяком случае у нас в конторке так."
+            show Oleg listening1
             GG "Ну про рукоприкладство… или даже ногоприкладство – это же шутка, верно?"
-            Oleg "А вот, кто знает… Отучишься, придёшь и сам посмотришь =)))"
+            Oleg talking1 "А вот, кто знает… Отучишься, придёшь и сам посмотришь =)))"
+            show Oleg listening1
             GG "Понятно, а ты всё такой же."
-            Oleg "Ага, а минусы будут? Что-нибудь ещё рассказать? Какие-нибудь байки ещё травануть?"
+            Oleg talking2 "Ага, а минусы будут? Что-нибудь ещё рассказать? Какие-нибудь байки ещё травануть?"
+            show Oleg listening2
             jump AndrewSecondSelect
         "Понятно, понятно, А теперь давай ты рассказывай, как у тебя лето проходит?":
             "После часа хорошей беседы Олег и гг расходятся, кто домой, а кто дальше работать"
@@ -416,9 +463,11 @@ label OlegSelected:
         "Что ещё хотите спросить у Олега?"
         "Наверное, не самый хороший вопрос, но а вот как по зп всё?":
             $ involvement += 1
-            Oleg "Ну вот знаешь, в среднем это где-то 100к, где-то меньше, где-то больше. Не знаю как там у юристов, но мы не жалуемся. Ну как готов к поступлению?"
+            Oleg talking2 "Ну вот знаешь, в среднем это где-то 100к, где-то меньше, где-то больше. Не знаю как там у юристов, но мы не жалуемся. Ну как готов к поступлению?"
+            show Oleg listening1
             GG "Ну я ещё думаю пока что. ладно, спасибо, что помог и объяснил"
-            Oleg "Всегда пожалуйста. А теперь давай ты рассказывай, как у тебя лето проходит..."
+            Oleg talking1 "Всегда пожалуйста. А теперь давай ты рассказывай, как у тебя лето проходит..."
+            show Oleg listening2
             "После часа хорошей беседы Олег и гг расходятся, кто домой, а кто дальше работать"
             jump friendSelectAfterOleg
         "Да не стоит, а теперь давай ты рассказывай, как у тебя лето проходит?":
@@ -442,3 +491,70 @@ label OlegSelected:
                 jump OlegSelected
 
     return
+
+label HappyEnd:
+    call HideAll
+    scene messengerBG
+
+    show AndrewName at namePos zorder 1
+    show HappyEndDialogueAndrew at Position(yalign=-5.75)
+    $ renpy.pause()
+    menu:
+        "Я смогу переубедить родных и поступить на желаемое направление!":
+            show HappyEndDialogueAndrew at Position(yalign=-3.35)
+            $ renpy.pause()
+            show HappyEndDialogueAndrew at Position(yalign=-1.45)
+            $ renpy.pause()
+            show HappyEndDialogueAndrew at Position(yalign=-0.25)
+            $ renpy.pause()
+            call HideAll
+            scene image "HappyEnd.png"
+            $ renpy.pause()
+        "Я не смогу переубедить родных и поступлю на юриста, хоть и не хочу":
+            hide HappyEndDialogueAndrew
+            show UNhappyEndDialogueAndrew at Position(yalign=-0.85)
+            $ renpy.pause()
+            show UNhappyEndDialogueAndrew at Position(yalign=-0.33)
+            $ renpy.pause()
+            show UNhappyEndDialogueAndrew at Position(yalign=-0.1)
+            $ renpy.pause()
+            show UNhappyEndDialogueAndrew at Position(yalign=0.28)
+            $ renpy.pause()
+            show UNhappyEndDialogueAndrew at Position(yalign=0.55)
+            $ renpy.pause()
+            show UNhappyEndDialogueAndrew at Position(yalign=0.75)
+            $ renpy.pause()
+            call HideAll
+            scene image "UNhappyEnd.png"
+            $ renpy.pause()
+    $ MainMenu(confirm=False)()
+    
+label UNhappyEnd:
+    call HideAll
+    scene messengerBG
+    show AndrewName at namePos zorder 1
+
+    show HappyEndDialogueAndrew at Position(yalign=-5.75)
+    $ renpy.pause()
+    menu FailMenu:
+        "Я смогу переубедить родных и поступить на желаемое направление!":
+            "{size=*1.5}У вас недостаточно заинтересованности в профессии"
+            jump FailMenu
+        "Я не смогу переубедить родных и поступлю на юриста, хоть и не хочу":
+            hide HappyEndDialogueAndrew
+            show UNhappyEndDialogueAndrew at Position(yalign=-0.85)
+            $ renpy.pause()
+            show UNhappyEndDialogueAndrew at Position(yalign=-0.33)
+            $ renpy.pause()
+            show UNhappyEndDialogueAndrew at Position(yalign=-0.1)
+            $ renpy.pause()
+            show UNhappyEndDialogueAndrew at Position(yalign=0.28)
+            $ renpy.pause()
+            show UNhappyEndDialogueAndrew at Position(yalign=0.55)
+            $ renpy.pause()
+            show UNhappyEndDialogueAndrew at Position(yalign=0.75)
+            $ renpy.pause()
+            call HideAll
+            scene image "UNhappyEnd.png"
+            $ renpy.pause()
+    $ MainMenu(confirm=False)()
