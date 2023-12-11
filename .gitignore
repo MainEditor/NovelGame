@@ -9,3 +9,4 @@ src/NovelGame/game/cache/
 !src/NovelGame/
 src/*
 src/NovelGame/game/*.rpyc
+NovelGame-setup.exe
