@@ -493,7 +493,7 @@ label OlegSelected:
     return
 
 label HappyEnd:
-    call HideAll
+    call HideAll from _call_HideAll_3
     scene messengerBG
 
     show AndrewName at namePos zorder 1
@@ -507,7 +507,7 @@ label HappyEnd:
             $ renpy.pause()
             show HappyEndDialogueAndrew at Position(yalign=-0.25)
             $ renpy.pause()
-            call HideAll
+            call HideAll from _call_HideAll_4
             scene image "HappyEnd.png"
             $ renpy.pause()
         "Я не смогу переубедить родных и поступлю на юриста, хоть и не хочу":
@@ -524,13 +524,13 @@ label HappyEnd:
             $ renpy.pause()
             show UNhappyEndDialogueAndrew at Position(yalign=0.75)
             $ renpy.pause()
-            call HideAll
+            call HideAll from _call_HideAll_5
             scene image "UNhappyEnd.png"
             $ renpy.pause()
     $ MainMenu(confirm=False)()
     
 label UNhappyEnd:
-    call HideAll
+    call HideAll from _call_HideAll_6
     scene messengerBG
     show AndrewName at namePos zorder 1
 
@@ -554,7 +554,7 @@ label UNhappyEnd:
             $ renpy.pause()
             show UNhappyEndDialogueAndrew at Position(yalign=0.75)
             $ renpy.pause()
-            call HideAll
+            call HideAll from _call_HideAll_7
             scene image "UNhappyEnd.png"
             $ renpy.pause()
     $ MainMenu(confirm=False)()
