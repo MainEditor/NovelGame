@@ -507,8 +507,7 @@ label HappyEnd:
             $ renpy.pause()
             show HappyEndDialogueAndrew at Position(yalign=-0.25)
             $ renpy.pause()
-            call HideAll from _call_HideAll_4
-            scene image "HappyEnd.png"
+            scene image "HappyEnd.png" with Fade(0.5, 0.6, 0.5)
             $ renpy.pause()
         "Я не смогу переубедить родных и поступлю на юриста, хоть и не хочу":
             hide HappyEndDialogueAndrew
@@ -524,8 +523,7 @@ label HappyEnd:
             $ renpy.pause()
             show UNhappyEndDialogueAndrew at Position(yalign=0.75)
             $ renpy.pause()
-            call HideAll from _call_HideAll_5
-            scene image "UNhappyEnd.png"
+            scene image "UNhappyEnd.png" with Fade(0.5, 0.6, 0.5)
             $ renpy.pause()
     $ MainMenu(confirm=False)()
     
@@ -554,7 +552,6 @@ label UNhappyEnd:
             $ renpy.pause()
             show UNhappyEndDialogueAndrew at Position(yalign=0.75)
             $ renpy.pause()
-            call HideAll from _call_HideAll_7
-            scene image "UNhappyEnd.png"
+            scene image "UNhappyEnd.png" with Fade(0.5, 0.6, 0.5)
             $ renpy.pause()
     $ MainMenu(confirm=False)()
